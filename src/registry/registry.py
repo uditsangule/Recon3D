@@ -61,7 +61,7 @@ def list_methods() -> List[str]:  return sorted(_METHODS.keys())
 def list_hooks() -> List[str]:    return sorted(_HOOKS.keys())
 
 # optional: auto-discovery via Python entry points
-def load_entry_point_plugins(group: str = "three_d_recon.plugins") -> int:
+def load_entry_point_plugins(group: str = "src.plugins") -> int:
     """Discover and call plugin registrars declared in pyproject entry points.
     Each entry point should be a callable that, when imported/called, registers classes via decorators.
     """

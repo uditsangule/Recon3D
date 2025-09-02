@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Optional, Dict, Any
 import json
 
-from ..core.job import JobSpec, JobRecord
+from src.reconstruction.core.job import JobSpec, JobRecord
 
 class DirJobStore:
     """

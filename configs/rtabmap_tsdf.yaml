@@ -1,0 +1,32 @@
+# --- who/what ---
+name: room_tsdf_baseline
+pipeline: tsdf                 # you wrote run_tsdf_pipeline
+adapter: rtabmap               # your RTABMapAdapter
+method: tsdf_fusion            # your TSDF reconstructor
+
+# --- where the data lives ---
+inputs:
+  root: /home/udit/Udit/Data/PointClouds_Data/SimpleLivingRoom1    # folder that contains __rgb, __depth, __calib, poses.txt
+  rtabmap:
+    start: 0                   # index in the *sorted* frame list (not the filename number); null = from start
+    stop: 50                 # exclusive; null = till end
+    step: 1                    # keep every k-th frame; e.g., 5 to keep ~20% of frames
+    parallel: false              # if load frames in parallel
+    format: 11                   # pose format of exported data.
+
+# --- TSDF parameters (tune to your scene scale) ---
+tsdf:
+  voxel_length: 0.01           # meters per voxel (1 cm)
+  sdf_trunc: 0.1              # truncation distance (m), ~5x voxel_length is a good start
+  depth_trunc_m: 5           # ignore depths farther than this (meters)
+  depth_scale: 1000              # "mm" | "meters" | number -> if number, divide raw depth by this (e.g., 1000)
+
+# --- execution knobs (optional) ---
+execution:
+  workers: 8                   # >1 lets the method pre-load RGBD frames in parallel
+  use_processes: false         # threads are ideal for IO-bound image loading
+
+# --- outputs ---
+outputs:
+  save_mesh: true
+  save_points: true

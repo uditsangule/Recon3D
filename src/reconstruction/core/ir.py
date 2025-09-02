@@ -6,7 +6,7 @@ import numpy as np
 
 @dataclass
 class Intrinsics:
-    fx: float; fy: float; cx: float; cy: float
+    matrix: np.ndarray
     dist: Optional[np.ndarray] = None  # k1,k2,p1,p2,k3...
 
 
@@ -19,21 +19,9 @@ class Extrinsics:
 @dataclass
 class Pose:
     # world_T_cam: 4x4 homogeneous
+    id: int
+    timestamp: float
     matrix: np.ndarray  # shape (4,4)
-
-
-@dataclass
-class Frame:
-    id: str
-    rgb_path: str
-    depth_path: Optional[str]
-    surface_normal_path: Optional[str]
-    intrinsics: Intrinsics
-    pose: Optional[Pose]  # optional if SfM will solve it
-    sfm_pose: Optional[Pose]  # optional if we get some corrected pose
-    timestamp: Optional[float] = None
-    meta: Dict = None  # detections/segm/keypoints/etc
-    description: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -42,14 +30,28 @@ class Sensor:
     type: str  # "pinhole", "tof", "lidar", ...
     intrinsics: Intrinsics
     extrinsics: Extrinsics
+    width: Optional[int] = None
+    height: Optional[int] = None
     meta: Dict[str, Any] = field(default_factory=dict)
+
+@dataclass
+class Frame:
+    id: str
+    rgb_path: str
+    depth_path: Optional[str]
+    surface_normal_path: Optional[str]
+    sensor: Optional[Sensor]
+    pose: Optional[Pose]  # optional if SfM will solve it
+    sfm_pose: Optional[Pose]  # optional if we get some corrected pose
+    meta: Dict = None  # detections/segm/keypoints/etc
+    description: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
 class Scene:
     id: str
     frames: List[Frame]
-    sensors: Dict[str, Sensor]
+    sensors: Optional[Dict[str, Sensor]] = None
     bounds: Optional[Tuple[np.ndarray, np.ndarray]] = None  # AABB
     extra: Dict = None  # source-specific bits
 
