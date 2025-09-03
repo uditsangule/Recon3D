@@ -7,8 +7,7 @@ import numpy as np
 import pandas as pd
 import yaml
 
-# from ..core.io_utils import load_opencv_yaml_intrinsics, quat_xyzw_to_matrix
-from src.registry import register_adapter
+from src.registry.registry import register_adapter
 from .base import DataAdapter
 from ..core.ir import Scene, Frame, Sensor,Pose, Intrinsics, Extrinsics
 from ..core import pose_utils as pu

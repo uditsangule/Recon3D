@@ -8,8 +8,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
     ap.add_argument("--input", required=False)   # overrides inputs.root if given
-    ap.add_argument("--workdir", required=True)
-    ap.add_argument("--outdir", required=True)
+    ap.add_argument("--workdir", required=False , default=Path.cwd())
+    ap.add_argument("--outdir", required=False, default=None)
     args = ap.parse_args()
 
     cfg = yaml.safe_load(open(args.config, "r"))

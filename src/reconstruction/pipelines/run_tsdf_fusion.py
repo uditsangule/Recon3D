@@ -1,6 +1,6 @@
 from pathlib import Path
-from src.registry import get_adapter , get_method , load_entry_point_plugins
-from src.utils import get_logger , configure_logging
+from src.registry.registry import get_adapter , get_method , load_entry_point_plugins
+from src.utils.logger import get_logger , configure_logging
 
 log = get_logger(__name__)
 configure_logging(rich=False)
