@@ -46,7 +46,8 @@ def _decompose_calib(calib_file):
         calib = yaml.safe_load(f)
     intr = Intrinsics(matrix=np.array(calib['camera_matrix']['data']).reshape(3,3))
     E = np.eye(4)
-    E[:3,:] = np.array(calib['local_transform']['data']).reshape(3,4)
+    if calib.get('local_transform'):
+        E[:3,:] = np.array(calib['local_transform']['data']).reshape(3,4)
     extr = Extrinsics(matrix=E)
     width = calib.get('image_width', None)
     height = calib.get('image_height', None)

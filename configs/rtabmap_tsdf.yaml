@@ -6,10 +6,10 @@ method: tsdf_fusion            # your TSDF reconstructor
 
 # --- where the data lives ---
 inputs:
-  root: /home/udit/Udit/Data/PointClouds_Data/SimpleLivingRoom1    # folder that contains __rgb, __depth, __calib, poses.txt
+  root: /home/udit/Udit/Data/pointclouds/UCBuilding    # folder that contains __rgb, __depth, __calib, poses.txt
   rtabmap:
     start: 0                   # index in the *sorted* frame list (not the filename number); null = from start
-    stop: 50                 # exclusive; null = till end
+    stop: 100                 # exclusive; null = till end
     step: 1                    # keep every k-th frame; e.g., 5 to keep ~20% of frames
     parallel: false              # if load frames in parallel
     format: 11                   # pose format of exported data.
